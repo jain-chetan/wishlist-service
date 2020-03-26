@@ -20,7 +20,8 @@ type DBRepo struct {
 func (dc *DBRepo) DBConnect(config model.DBConfig) error {
 	var err error
 	//Set timeout
-	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
 	//initialize DBClient
 	dc.DBClient, err = mongo.Connect(ctx, options.Client().ApplyURI(config.User+"://"+config.Host+":"+config.Port))
 	if err != nil {

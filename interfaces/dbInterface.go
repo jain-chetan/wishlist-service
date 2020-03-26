@@ -11,5 +11,6 @@ var DBClient DBInteractions
 
 //DBInteractions interface contains database methods
 type DBInteractions interface {
-	DBConnect(config model.DBConfig) error
+	DBConnect(model.DBConfig) error
+	//GetSingleWishlistQuery(string) (model.Wishlist, error)
 }
