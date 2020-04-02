@@ -17,10 +17,10 @@ type CreateResponse struct {
 
 //Wishlist structure for Wishlist document
 type Wishlist struct {
-	WishlistID primitive.ObjectID `json:"wishlistID,omitempty" bson:"wishlistID,omitempty"`
-	UserID     int                `json:"userID" bson:"userID"`
-	ProductID  int                `json:"productID" bson:"productID"`
-	IsDeleted  bool               `json:"isDeleted" bson:"isDeleted"`
+	WishlistID primitive.ObjectID `json:"wishlistID,omitempty" bson:"_id,omitempty"`
+	UserID     int                `json:"userID" bson:"UserID"`
+	ProductID  int                `json:"productID" bson:"ProductID"`
+	IsDeleted  bool               `json:"isDeleted" bson:"IsDeleted"`
 }
 
 //DBConfig has information required to connect to DB

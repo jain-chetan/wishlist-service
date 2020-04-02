@@ -2,10 +2,10 @@ package gethandlers
 
 import (
 	"encoding/json"
-	"log"
 	"net/http"
+	"strconv"
 
-	"github.com/gorilla/mux"
+	"github.com/jain-chetan/wishlist-service/interfaces"
 	"github.com/jain-chetan/wishlist-service/model"
 )
 
@@ -15,13 +15,21 @@ type GetHandler struct{}
 //GetSingleWishlistHandler to handle request and response for get single wishlist
 func (get *GetHandler) GetSingleWishlistHandler(response http.ResponseWriter, request *http.Request) {
 
-	pathParam := mux.Vars(request)
-	wishlistID := pathParam["wishlistID"]
+	headerParam := request.Header.Get("userID")
 
-	log.Println("Path parameter: ", wishlistID)
+	//converting string ID into int
+	userID, err := strconv.Atoi(headerParam)
+	if err != nil {
+		errResponse := model.Response{
+			Code:    400,
+			Message: "Invalid Input: unable to convert header from string to int",
+		}
+		response.Header().Add("Status", "400")
+		json.NewEncoder(response).Encode(errResponse)
+		return
+	}
 
-	//wishlist, err := interfaces.DBClient.GetSingleWishlistQuery(wishlistID)
-	var err error
+	wishlist, err := interfaces.DBClient.GetSingleWishlistQuery(userID)
 	if err != nil {
 		errResponse := model.Response{
 			Code:    400,
@@ -32,5 +40,6 @@ func (get *GetHandler) GetSingleWishlistHandler(response http.ResponseWriter, re
 		return
 	}
 	response.Header().Add("Status", "200")
-	json.NewEncoder(response).Encode(err)
+	response.Header().Set("Content-Type", "application/json; charset=UTF-8")
+	json.NewEncoder(response).Encode(wishlist)
 }

@@ -26,10 +26,10 @@ func main() {
 	router := mux.NewRouter()
 
 	router.HandleFunc("/wishlist/ping", api.APIHandler.PingHandler).Methods("GET")
-	//router.HandleFunc("/wishlist/version", api.APIHandler.VersionHandler).Methods("GET")
-	router.HandleFunc("/wishlist/{wishlistID}", api.GetHandler.GetSingleWishlistHandler).Methods("GET")
-	// router.HandleFunc("/wishlist/", api.DeleteHandler.DeleteWishlistHandler).Methods("Delete")
-	// router.HandleFunc("/wishlist/", api.PostHandler.PostWishlistHandler).Methods("POST")
+	router.HandleFunc("/wishlist/version", api.APIHandler.VersionHandler).Methods("GET")
+	router.HandleFunc("/wishlist", api.PostHandler.PostWishlistHandler).Methods("POST")
+	router.HandleFunc("/wishlist", api.GetHandler.GetSingleWishlistHandler).Methods("GET")
+	router.HandleFunc("/wishlist/{productID}", api.DeleteHandler.DeleteWishlistHandler).Methods("Delete")
 
 	http.ListenAndServe(":8000", router)
 }
