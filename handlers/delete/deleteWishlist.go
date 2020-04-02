@@ -20,6 +20,8 @@ func (deleteData *DeleteHandler) DeleteWishlistHandler(response http.ResponseWri
 	param := mux.Vars(request)
 	pathParam := param["productID"]
 
+	response.Header().Set("Content-Type", "application/json; charset=UTF-8")
+
 	//converting string ID into int
 	productID, err := strconv.Atoi(pathParam)
 	if err != nil {
@@ -62,6 +64,5 @@ func (deleteData *DeleteHandler) DeleteWishlistHandler(response http.ResponseWri
 		Message: "Ok",
 	}
 	response.Header().Add("Status", "200")
-	response.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	json.NewEncoder(response).Encode(result)
 }

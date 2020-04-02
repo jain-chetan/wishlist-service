@@ -18,6 +18,8 @@ func (post *PostHandler) PostWishlistHandler(response http.ResponseWriter, reque
 	//wishlist model to decode JSON data
 	var wishlist model.Wishlist
 
+	response.Header().Set("Content-Type", "application/json; charset=UTF-8")
+
 	//Decoding JSON Body from Request
 	errDecode := json.NewDecoder(request.Body).Decode(&wishlist)
 
@@ -56,6 +58,5 @@ func (post *PostHandler) PostWishlistHandler(response http.ResponseWriter, reque
 		Message: "Successfully Created",
 	}
 	response.Header().Add("Status", "201")
-	response.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	json.NewEncoder(response).Encode(result)
 }

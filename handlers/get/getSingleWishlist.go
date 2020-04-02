@@ -17,6 +17,8 @@ func (get *GetHandler) GetSingleWishlistHandler(response http.ResponseWriter, re
 
 	headerParam := request.Header.Get("userID")
 
+	response.Header().Set("Content-Type", "application/json; charset=UTF-8")
+
 	//converting string ID into int
 	userID, err := strconv.Atoi(headerParam)
 	if err != nil {
@@ -40,6 +42,5 @@ func (get *GetHandler) GetSingleWishlistHandler(response http.ResponseWriter, re
 		return
 	}
 	response.Header().Add("Status", "200")
-	response.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	json.NewEncoder(response).Encode(wishlist)
 }
