@@ -11,8 +11,10 @@ import (
 
 //CreateWishlistQuery query function to insert wishlist in database
 func (dc *DBRepo) CreateWishlistQuery(wishlist model.Wishlist) (model.CreateResponse, error) {
+
 	var result model.CreateResponse
 	emptyResponse := model.CreateResponse{}
+
 	collection := dc.DBClient.Database("local").Collection("Wishlist")
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
